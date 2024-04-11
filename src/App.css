@@ -2,8 +2,8 @@
   background-color: rgb(43, 41, 40);
 }
 .sphere {
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   border-radius: 100%;
   background-color: red;
   position: absolute;
@@ -11,4 +11,5 @@
     top 1s,
     left 1s;
   cursor: pointer;
+  transition-timing-function: ease-in-out;
 }
