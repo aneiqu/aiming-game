@@ -13,3 +13,6 @@
   cursor: pointer;
   transition-timing-function: ease-in-out;
 }
+.hidden {
+  visibility: none;
+}

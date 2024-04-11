@@ -3,14 +3,19 @@ import "./App.css";
 
 function App() {
   const [position, setPosition] = useState({ top: 0, left: 0, duration: 0 });
-  const [isRunning, setIsRunning] = useState(false);
   const [time, setTime] = useState({ in: 0, out: 0 });
   const [bestTime, setBestTime] = useState(0);
+  const [speed, setSpeed] = useState(180);
+
+  const startGame = (e) => {
+    const element = document.querySelector(".interface");
+    element.classList.toggle("hidden");
+    e.target.classList.toggle("hidden");
+    moveElement();
+  };
 
   const moveElement = () => {
     const element = document.querySelector(".sphere");
-
-    setIsRunning(true);
 
     // possible dimensions minus sphere size
     const h = window.innerHeight - 60;
@@ -18,7 +23,6 @@ function App() {
     // new position
     const nh = Math.floor(Math.random() * h);
     const nw = Math.floor(Math.random() * w);
-
     // distance formula
     const distance = Math.sqrt(
       (nh - parseInt(element.style.top)) ** 2 +
@@ -26,7 +30,7 @@ function App() {
     );
 
     // distance / px multplied by 1000 to make it px/s
-    const duration = (distance / 180) * 1000;
+    const duration = (distance / +element.getAttribute("speed")) * 1000;
 
     setPosition({
       top: nh,
@@ -86,20 +90,48 @@ function App() {
     };
   }, []);
 
+  const handleSpeedUpdate = (e) => {
+    e.preventDefault();
+    +e.target[0].value <= 100
+      ? alert("Minimum speed is 100px/s!")
+      : setSpeed(+e.target[0].value);
+  };
+
   return (
     <div>
-      <div className='text-white text-3xl font-bold'>
-        Current best time= {bestTime}s
+      <div className={` interface hidden`}>
+        <div className='text-white text-3xl font-bold w-fit ml-2'>
+          Current best time= {bestTime}s
+        </div>
+        <form onSubmit={handleSpeedUpdate} className='ml-2 mt-1'>
+          <input
+            type='number'
+            className='text-white text-3xl font-bold relative w-fit outline  outline-white'
+            placeholder='px/second (180 by default)'
+          ></input>
+          <button
+            type='submit'
+            className='text-white text-3xl font-bold relative w-fit ml-2'
+          >
+            Update
+          </button>
+        </form>
       </div>
       <div
         className='sphere'
+        speed={speed}
         style={{
           top: position.top + "px",
           left: position.left + "px",
           transitionDuration: position.duration + "ms",
         }}
-        onClick={isRunning ? null : moveElement}
       ></div>
+      <div
+        className={` absolute text-6xl text-white font-bold cursor-pointer`}
+        onClick={(e) => startGame(e)}
+      >
+        Start game
+      </div>
     </div>
   );
 }
