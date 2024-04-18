@@ -1,9 +1,6 @@
-* {
-  background-color: rgb(43, 41, 40);
-}
 .sphere {
-  height: 60px;
-  width: 60px;
+  height: 75px;
+  width: 75px;
   border-radius: 100%;
   background-color: red;
   position: absolute;
@@ -11,7 +8,7 @@
     top 1s,
     left 1s;
   cursor: pointer;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: linear;
 }
 .hidden {
   visibility: none;
