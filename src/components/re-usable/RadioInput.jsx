@@ -11,7 +11,6 @@ export default function RadioInput({ name, id, label, updateData, disabled }) {
       {label ? (
         <label
           className={`select-none ${disabled ? "opacity-70 line-through" : ""}`}
-          for={id}
         >
           {label}
         </label>
